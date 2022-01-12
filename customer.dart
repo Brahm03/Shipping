@@ -5,6 +5,7 @@ class Customer extends shopping_cart {
   final String billingAdress;
   final String defaultShipping;
   int id_for_customer;
+  static int money = 1000;
 
   Customer(
       {required this.id_for_customer,
@@ -13,9 +14,8 @@ class Customer extends shopping_cart {
       required this.defaultShipping})
       : super(id: id_for_customer);
 
-
   void checkout() {
-    shopping_cart.producID.forEach((key, value) {
+    shopping_cart.producID_selling.forEach((key, value) {
       print("$key | $value");
     });
   }

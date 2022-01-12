@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'customer.dart';
 import 'shopping_cart.dart';
 
@@ -53,19 +55,56 @@ class System_of_shipping extends shopping_cart {
     'Partogal'
   ];
 
-  Function distance_checker = (String default_ship) {
+   distance_checker(String default_ship) async {
     for (var item in asia) {
-      for (var jitem in europe) {
-        if (default_ship == item) {
-          benifit += 20000 * 1;
-          print("Your product is on the way to $default_ship Asia");
-          break;
-        } else if (default_ship == jitem) {
-              benifit += 20000 * 2;
-              print("Your product is on the way to $default_ship Europe");
-              break;
+      if (default_ship == item) {
+        benifit += 20000 * 1;
+        print("Your product is on the way to $default_ship Asia");
+        for (var i = 0; i < 5; i++) {
+          await Future.delayed(Duration(seconds: i), () {
+            stdout.write('.');
+          });
+
+          print("The produects has been delivered to $default_ship");
+          print("Enter 1 to see all products you have sent");
+          String one = stdin.readLineSync() as String;
+          try {
+            if (one == '1') {
+              int i = 1;
+              shopping_cart.shipping_product.forEach((element) {
+                print("$i - $element");
+              });
+            }
+          } catch (e) {
+            print(e);
+          }
         }
+        break;
       }
     }
-  };
+    for (var item in europe) {
+      if (default_ship == item) {
+        benifit += 20000 * 2;
+        print("Your product is on the way to $default_ship Europe");
+        for (var i = 0; i < 5; i++) {
+          await Future.delayed(Duration(seconds: i));
+          stdout.write('.');
+          print("The produects has been delivered to $default_ship");
+          print("Enter 1 to see all products you have sent");
+          String one = stdin.readLineSync() as String;
+          try {
+            if (one == '1') {
+              int i = 1;
+              shopping_cart.shipping_product.forEach((element) {
+                print("$i - $element");
+              });
+            }
+          } catch (e) {
+            print(e);
+          }
+        }
+        break;
+      }
+    }
+  }
 }
